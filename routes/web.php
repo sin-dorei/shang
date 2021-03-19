@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'StaticPageController@home')->name('home');
 Route::get('/help', 'StaticPageController@help')->name('help');
 Route::get('/about', 'StaticPageController@about')->name('about');
+
+Route::get('/signup', 'UserController@create')->name('signup');
