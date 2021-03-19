@@ -5,16 +5,16 @@
 
       @if (Auth::check())
 
-        <li class="nav-item"><a class="nav-link" href="#">用户列表</a></li>
+        <li class="nav-item"><a class="nav-link" href="javascript:;">用户列表</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ Auth::user()->name }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ route('user.show', Auth::user()) }}">个人中心</a>
-            <a class="dropdown-item" href="#">编辑资料</a>
+            <a class="dropdown-item" href="{{ route('user.show', Auth::id()) }}">个人中心</a>
+            <a class="dropdown-item" href="javascript:;">编辑资料</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="logout" href="#">
+            <a class="dropdown-item" id="logout" href="javascript:;">
               <form method="POST" action="{{ route('logout') }}">
 
                 @csrf
