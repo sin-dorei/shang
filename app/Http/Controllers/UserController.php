@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailVerification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -48,9 +49,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        Auth::login($user);
-        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
-        return redirect()->route('user.show', $user);
+        \Mail::to($user)->send(new EmailVerification($user));
+        session()->flash('success', '验证邮件已发送到你的注册邮箱上，请注意查收。');
+//        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
+        return redirect()->route('home');
     }
 
     public function edit(User $user)
@@ -86,5 +88,19 @@ class UserController extends Controller
 
         session()->flash('success', '成功删除用户！');
         return back();
+    }
+
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token', $token)->firstOrFail();
+
+        $user->update([
+            'actived' => true,
+            'activation_token' => null,
+        ]);
+
+        Auth::login($user);
+        session()->flash('success', '您的帐号已成功激活！');
+        return redirect()->route('user.show', $user);
     }
 }
