@@ -18,6 +18,9 @@ class UserSeeder extends Seeder
         $user->name = 'Spring';
         $user->email = 'spring@emt.com';
         $user->is_admin = true;
+        $user->activation_token = null;
+        $user->activated = true;
+        $user->remember_token = null;
         $user->save();
     }
 }
