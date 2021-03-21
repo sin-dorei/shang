@@ -7,6 +7,9 @@
       <section class="user_info">
         @include('shared._user_info')
       </section>
+      @auth
+        @include('users._follow_form')
+      @endauth
       <section class="stats mt-2">
         @include('shared._stats', ['user' => $user])
       </section>
